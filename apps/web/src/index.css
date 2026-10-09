@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/* โทนสีตามงานออกแบบ (design/public/vote.html) */
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Noto Sans Thai", system-ui, sans-serif;
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-border: var(--accent-border);
+  --color-track: var(--track);
+}
+
+:root {
+  --canvas: #f3f7ff;
+  --surface: #ffffff;
+  --ink: #0f1f3d;
+  --mute: #55667f;
+  --line: #dfe8f5;
+  --accent: #1f6bff;
+  --accent-2: #19a7f2;
+  --accent-strong: #1550cc;
+  --accent-soft: #e8f1ff;
+  --accent-border: #bfd6ff;
+  --track: #e4ecf8;
+  --shadow: 0 1px 2px rgb(15 50 140 / 5%), 0 12px 30px rgb(20 80 200 / 10%);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #081426;
+    --surface: #122a4d;
+    --ink: #eaf3ff;
+    --mute: #9fb8d9;
+    --line: #27508a;
+    --accent: #6fb1ff;
+    --accent-2: #3fc3ff;
+    --accent-strong: #a9cfff;
+    --accent-soft: #1e4272;
+    --accent-border: #2d5a94;
+    --track: #173560;
+    --shadow: 0 1px 2px rgb(0 0 0 / 35%), 0 12px 30px rgb(0 0 0 / 35%);
+    color-scheme: dark;
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+  -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  .btn-primary {
+    color: #06142b;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
