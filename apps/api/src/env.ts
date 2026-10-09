@@ -15,6 +15,8 @@ export const env = {
   channelSecret: opt("LINE_CHANNEL_SECRET"),
   channelAccessToken: opt("LINE_CHANNEL_ACCESS_TOKEN"),
   devAuth: !isProd && opt("DEV_AUTH") === "true",
+  // คีย์สำหรับ /api/cron (Scheduled Task ของโฮสต์เรียกทุกนาที เผื่อแอปถูกพักตอนไม่มีคนใช้)
+  cronKey: opt("CRON_KEY"),
 };
 
 if (!env.databaseUrl.startsWith("mysql://")) throw new Error("DATABASE_URL must be a mysql:// URL (see .env.example)");

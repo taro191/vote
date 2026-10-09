@@ -8,6 +8,14 @@ import { castVote, clearVote, closePoll, createPoll, createSchema, deletePoll, l
 import { handleEvent } from "./webhook.js";
 import { verifySignature } from "./line.js";
 import * as life from "./life.js";
+import { tick } from "./scheduler.js";
+import { timingSafeEqual } from "node:crypto";
+
+const safeEqual = (a: string, b: string) => {
+  const x = Buffer.from(a);
+  const y = Buffer.from(b);
+  return x.length === y.length && timingSafeEqual(x, y);
+};
 
 const parse = <T extends z.ZodTypeAny>(s: T, v: unknown): z.infer<T> => {
   const r = s.safeParse(v);
@@ -19,6 +27,13 @@ export async function routes(app: FastifyInstance) {
   /* ---------------------------------- meta --------------------------------- */
   app.get("/api/health", async () => ({ ok: true }));
   app.get("/api/config", async () => ({ liffId: env.liffId || null, devAuth: env.devAuth, bot: hasBot() }));
+
+  // ให้ Scheduled Task ของโฮสต์เรียกทุกนาที: ปิดโหวตที่ถึงเวลา ส่งเตือน และส่งผล
+  app.get<{ Querystring: { key?: string } }>("/api/cron", async (req) => {
+    if (!env.cronKey || !safeEqual(req.query.key ?? "", env.cronKey)) throw new HttpError(404, "Not found");
+    await tick();
+    return { ok: true };
+  });
 
   /* ---------------------------------- auth --------------------------------- */
   app.post("/api/auth/line", async (req) => {

@@ -57,6 +57,21 @@ NODE_ENV=production npm start
 API จะเสิร์ฟหน้าเว็บจาก `apps/web/dist` ด้วย จึงใช้โดเมนเดียวกันได้ทั้ง LIFF endpoint และ webhook
 เมื่อ `NODE_ENV=production` ระบบจะปิดล็อกอินจำลองและกลุ่มจำลองอัตโนมัติ
 
+## Deploy บน Plesk (vote.yaydang.com)
+1. **Git** (Websites & Domains → vote.yaydang.com → Git): ผูก repo นี้ branch `main` deploy อัตโนมัติไปที่ `/vote`
+2. **Node.js** → Enable Node.js แล้วตั้งค่า
+   - Application Root: `/vote` · Document Root: `/vote/apps/web/dist` · Startup File: `app.js` · Mode: `production`
+3. **Custom environment variables** (หรือสร้างไฟล์ `/vote/.env`):
+   - `DATABASE_URL=mysql://<user>:<password>@localhost:3306/<db>` — อักขระพิเศษในรหัสผ่านต้อง URL-encode (`&`→`%26`, `@`→`%40`, `#`→`%23`, `/`→`%2F`, `:`→`%3A`)
+   - `APP_SECRET` (สุ่ม ≥ 32 ตัว) · `CRON_KEY` (สุ่ม) · `PUBLIC_URL=https://vote.yaydang.com`
+   - LINE: `LINE_LOGIN_CHANNEL_ID`, `LIFF_ID`, `LINE_CHANNEL_SECRET`, `LINE_CHANNEL_ACCESS_TOKEN`
+4. **Run Node.js commands** ตามลำดับ: `install --include=dev` → `run build` → `run migrate:prod` แล้วกด **Restart App**
+5. **SSL/TLS Certificates** → ออก Let's Encrypt ให้ vote.yaydang.com (LIFF ต้องใช้ https)
+6. **Scheduled Tasks** → Fetch a URL ทุก 1 นาที: `https://vote.yaydang.com/api/cron?key=<CRON_KEY>`
+   (Passenger พักแอปเมื่อไม่มีคนใช้ งานนี้ทำให้ปิดโหวต/เตือน/ส่งผลตรงเวลา)
+
+อัปเดตครั้งถัดไป: push ขึ้น `main` → Plesk ดึงโค้ดเอง → รัน `run build` (และ `run migrate:prod` ถ้ามี migration ใหม่) → Restart App
+
 ## API หลัก
 | Method | Path | ใช้ทำอะไร |
 |---|---|---|

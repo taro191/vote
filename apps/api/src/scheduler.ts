@@ -3,7 +3,7 @@ import { announceResult, sendReminder } from "./polls.js";
 import { sendLifeReminders } from "./life.js";
 
 /** ปิดโหวตที่ถึงเวลา และส่งเตือนก่อนปิด (ทำงานซ้ำได้อย่างปลอดภัย) */
-async function tick() {
+export async function tick() {
   const due = await rows<{ id: string }>(
     "SELECT id FROM polls WHERE closed_at IS NULL AND closes_at IS NOT NULL AND closes_at <= CURRENT_TIMESTAMP(3) LIMIT 100",
   );
