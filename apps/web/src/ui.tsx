@@ -10,7 +10,9 @@ export type Route =
   | { name: "profile" }
   | { name: "create"; groupId?: string }
   | { name: "poll"; id: string }
-  | { name: "group"; id: string };
+  | { name: "group"; id: string }
+  | { name: "life" }
+  | { name: "stage"; id: string };
 
 type Nav = { route: Route; go: (r: Route) => void; back: () => void };
 export const NavCtx = createContext<Nav>(null as unknown as Nav);
@@ -293,5 +295,34 @@ export function BottomNav() {
         {item("profile", "โปรไฟล์")}
       </div>
     </nav>
+  );
+}
+
+/** การ์ดทางเข้า Vote my life (ตามงานออกแบบ: ต่อจากการ์ดโปรไฟล์) */
+export function LifeEntry() {
+  const { go } = useNav();
+  return (
+    <button
+      onClick={() => go({ name: "life" })}
+      aria-label="เปิด Vote my life เพื่อให้คะแนนชีวิตประจำวัน"
+      className="relative grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-3xl border border-accent-border bg-surface p-4 text-left shadow-[0_8px_28px_rgb(20_80_200/12%)] transition hover:-translate-y-0.5 before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-linear-to-b before:from-accent before:to-accent-2"
+    >
+      <span className="grid h-12 w-12 place-items-center rounded-2xl border border-accent-border bg-accent-soft text-accent" aria-hidden>
+        <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+          <path d="M8 2v3M16 2v3M3.5 9h17" />
+          <rect x="3.5" y="4" width="17" height="17" rx="3" />
+          <path d="m8 15 2.2 2.2L16.5 11" />
+        </svg>
+      </span>
+      <span className="min-w-0">
+        <span className="flex items-center gap-2 font-extrabold">
+          Vote my life <span className="btn-primary rounded-full px-2 py-0.5 text-[10px] font-bold">ใหม่</span>
+        </span>
+        <span className="mt-0.5 block text-xs text-mute">36,500 วัน · ให้คะแนนชีวิตทุกวัน ดูว่าใช้ไปเท่าไร เหลือเท่าไร</span>
+      </span>
+      <span className="btn-primary grid h-9 w-9 place-items-center rounded-full" aria-hidden>
+        ›
+      </span>
+    </button>
   );
 }

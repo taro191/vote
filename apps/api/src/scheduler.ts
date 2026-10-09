@@ -1,5 +1,6 @@
 import { exec, rows } from "./db.js";
 import { announceResult, sendReminder } from "./polls.js";
+import { sendLifeReminders } from "./life.js";
 
 /** ปิดโหวตที่ถึงเวลา และส่งเตือนก่อนปิด (ทำงานซ้ำได้อย่างปลอดภัย) */
 async function tick() {
@@ -19,6 +20,8 @@ async function tick() {
       LIMIT 100`,
   );
   for (const { id } of remind) await sendReminder(id).catch((e) => console.error("sendReminder", id, e));
+
+  await sendLifeReminders();
 }
 
 export function startScheduler(intervalMs = 30_000) {

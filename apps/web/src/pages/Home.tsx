@@ -1,6 +1,6 @@
 import { api, type PollListItem } from "../api";
 import { useSession } from "../App";
-import { Avatar, BATTLE_A, BATTLE_B, ErrorBox, PollList, Section, Spinner, useLoad, useNav } from "../ui";
+import { Avatar, BATTLE_A, BATTLE_B, ErrorBox, LifeEntry, PollList, Section, Spinner, useLoad, useNav } from "../ui";
 
 export default function Home() {
   const { user, group } = useSession();
@@ -30,6 +30,8 @@ export default function Home() {
         <p className="text-xs font-bold text-accent">สวัสดี {user.name}</p>
         <p className="mt-0.5 text-sm font-semibold">"เสียงของคุณ ขยับบางสิ่งเสมอ"</p>
       </div>
+
+      <LifeEntry />
 
       {group && !group.isMember && (
         <ErrorBox message={`คุณไม่ได้เป็นสมาชิกกลุ่ม "${group.group.name ?? "LINE"}" จึงดูโหวตของกลุ่มนี้ไม่ได้`} />

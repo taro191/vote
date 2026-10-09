@@ -13,6 +13,7 @@ type Event = {
 };
 
 const MENU_WORDS = /^(?:\/?vote|โหวต|\/โหวต|สร้างโหวต|เมนูโหวต)$/i;
+const LIFE_WORDS = /^(?:\/?life|vote my life|ชีวิต|โหวตชีวิต)$/i;
 
 function chatOf(s: Source): { id: string; type: "group" | "room" } | null {
   if (s.type === "group" && s.groupId) return { id: s.groupId, type: "group" };
@@ -52,6 +53,10 @@ export async function handleEvent(e: Event) {
 
     case "message": {
       const text = e.message?.type === "text" ? e.message.text?.trim() ?? "" : "";
+      if (e.replyToken && !chat && LIFE_WORDS.test(text)) {
+        await reply(e.replyToken, [textMessage("Vote my life 🗓️ ให้คะแนนวันนี้: " + appLink({ view: "life" }))]);
+        return;
+      }
       if (!e.replyToken || !MENU_WORDS.test(text)) return;
       if (chat) {
         await ensureGroup(chat.id, chat.type);

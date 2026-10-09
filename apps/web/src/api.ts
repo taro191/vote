@@ -102,6 +102,11 @@ export type CreatePollInput = {
   remindMinutes?: number | null;
 };
 
+export type LifeProfile = { id: string; name: string; birth: string; target: number; todayScore?: number | null };
+export type LifeOverview = { today: string; max: number; bot: boolean; remind: { on: boolean; time: string }; profiles: LifeProfile[] };
+export type LifeVotes = { profile: LifeProfile; today: string; votes: Record<string, [number, string | null]> };
+type ProfileInput = { name: string; birth: string; target: number };
+
 /* ---------------------------------- calls --------------------------------- */
 
 export const api = {
@@ -122,4 +127,15 @@ export const api = {
   unvote: (id: string) => req<Poll>("DELETE", `/api/polls/${id}/vote`),
   close: (id: string) => req<Poll>("POST", `/api/polls/${id}/close`),
   remove: (id: string) => req<void>("DELETE", `/api/polls/${id}`),
+
+  life: {
+    overview: () => req<LifeOverview>("GET", "/api/life"),
+    create: (p: ProfileInput) => req<LifeProfile>("POST", "/api/life/profiles", p),
+    update: (id: string, p: ProfileInput) => req<LifeProfile>("PUT", `/api/life/profiles/${id}`, p),
+    remove: (id: string) => req<void>("DELETE", `/api/life/profiles/${id}`),
+    votes: (id: string) => req<LifeVotes>("GET", `/api/life/profiles/${id}/votes`),
+    vote: (id: string, day: string, score: number, note: string) => req<void>("PUT", `/api/life/profiles/${id}/votes/${day}`, { score, note }),
+    clear: (id: string, day: string) => req<void>("DELETE", `/api/life/profiles/${id}/votes/${day}`),
+    remind: (on: boolean, time: string) => req<void>("PUT", "/api/life/remind", { on, time }),
+  },
 };

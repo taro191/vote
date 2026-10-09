@@ -7,7 +7,7 @@ const RATING_COLORS = ["#E5484D", "#F76B15", "#F5B800", "#46B97A", "#0F9D6B"];
 const AUDIENCE: Record<Poll["audience"], string> = { group: "เฉพาะสมาชิกกลุ่ม", link: "ทุกคนที่มีลิงก์", public: "สาธารณะ" };
 
 export default function PollPage({ id }: { id: string }) {
-  const { back } = useNav();
+  const { back, go } = useNav();
   const toast = useToast();
   const { data: poll, error, loading, reload, setData } = useLoad(() => api.poll(id), [id]);
   const [picked, setPicked] = useState<string[]>([]);
@@ -167,6 +167,9 @@ export default function PollPage({ id }: { id: string }) {
         </div>
 
         <div className="flex flex-wrap gap-2">
+          <button onClick={() => go({ name: "stage", id: poll.id })} className="rounded-xl bg-[#081426] px-4 py-2.5 text-sm font-bold text-[#6FB1FF]">
+            📺 จอใหญ่ (Stage)
+          </button>
           {voted && poll.allowChange && poll.isOpen && (
             <button onClick={() => act(() => api.unvote(poll.id), "ถอนโหวตแล้ว")} disabled={busy} className="rounded-xl bg-track px-4 py-2.5 text-sm font-bold text-mute">
               ถอนโหวต

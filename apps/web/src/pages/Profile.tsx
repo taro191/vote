@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { api } from "../api";
 import { useSession } from "../App";
-import { Avatar, ErrorBox, PollList, Spinner, useLoad, useNav, useToast } from "../ui";
+import { Avatar, ErrorBox, LifeEntry, PollList, Spinner, useLoad, useNav, useToast } from "../ui";
 import { Tabs } from "./Battles";
 
 export default function Profile() {
@@ -32,6 +32,8 @@ export default function Profile() {
           <p className="truncate text-xl font-extrabold">{user.name}</p>
         </div>
       </div>
+
+      <LifeEntry />
 
       <div className="space-y-2.5">
         <h2 className="px-1 text-[15px] font-extrabold">กลุ่ม LINE ที่ฉันอยู่</h2>

@@ -10,6 +10,8 @@ import Create from "./pages/Create";
 import PollPage from "./pages/PollPage";
 import GroupPage from "./pages/GroupPage";
 import Login from "./pages/Login";
+import Life from "./pages/Life";
+import Stage from "./pages/Stage";
 
 type Session = {
   user: User;
@@ -102,6 +104,7 @@ export default function App() {
           setBootError((e as Error).message);
         }
       } else if (view === "create") setStack((s) => [...s, { name: "create" }]);
+      else if (view === "life") setStack((s) => [...s, { name: "life" }]);
     })();
   }, [user]);
 
@@ -163,6 +166,8 @@ export default function App() {
             {route.name === "create" && <Create groupId={route.groupId} />}
             {route.name === "poll" && <PollPage key={route.id} id={route.id} />}
             {route.name === "group" && <GroupPage key={route.id} id={route.id} />}
+            {route.name === "life" && <Life />}
+            {route.name === "stage" && <Stage key={route.id} id={route.id} />}
           </main>
           {tabbed && <BottomNav />}
         </ToastProvider>

@@ -7,6 +7,7 @@ import { checkMember, ensureGroup, getGroupByLineId, myGroups, publicGroup } fro
 import { castVote, clearVote, closePoll, createPoll, createSchema, deletePoll, listPolls, pollView } from "./polls.js";
 import { handleEvent } from "./webhook.js";
 import { verifySignature } from "./line.js";
+import * as life from "./life.js";
 
 const parse = <T extends z.ZodTypeAny>(s: T, v: unknown): z.infer<T> => {
   const r = s.safeParse(v);
@@ -107,6 +108,43 @@ export async function routes(app: FastifyInstance) {
 
   app.delete<{ Params: { id: string } }>("/api/polls/:id", async (req, reply) => {
     await deletePoll(await requireUser(req), req.params.id);
+    reply.code(204);
+  });
+
+  /* ------------------------------ Vote my life ----------------------------- */
+  app.get("/api/life", async (req) => life.overview(await requireUser(req)));
+
+  app.post("/api/life/profiles", async (req, reply) => {
+    const user = await requireUser(req);
+    const p = await life.createProfile(user, parse(life.profileSchema, req.body));
+    reply.code(201);
+    return p;
+  });
+
+  app.put<{ Params: { id: string } }>("/api/life/profiles/:id", async (req) =>
+    life.updateProfile(await requireUser(req), req.params.id, parse(life.profileSchema, req.body)),
+  );
+
+  app.delete<{ Params: { id: string } }>("/api/life/profiles/:id", async (req, reply) => {
+    await life.deleteProfile(await requireUser(req), req.params.id);
+    reply.code(204);
+  });
+
+  app.get<{ Params: { id: string } }>("/api/life/profiles/:id/votes", async (req) => life.votes(await requireUser(req), req.params.id));
+
+  app.put<{ Params: { id: string; day: string } }>("/api/life/profiles/:id/votes/:day", async (req, reply) => {
+    const user = await requireUser(req);
+    await life.setVote(user, req.params.id, parse(life.daySchema, req.params.day), parse(life.voteSchema, req.body));
+    reply.code(204);
+  });
+
+  app.delete<{ Params: { id: string; day: string } }>("/api/life/profiles/:id/votes/:day", async (req, reply) => {
+    await life.clearVote(await requireUser(req), req.params.id, parse(life.daySchema, req.params.day));
+    reply.code(204);
+  });
+
+  app.put("/api/life/remind", async (req, reply) => {
+    await life.setRemind(await requireUser(req), parse(life.remindSchema, req.body));
     reply.code(204);
   });
 
