@@ -1,0 +1,12 @@
+{
+  "title": "VOTE - Democratic Decision & Battle Platform",
+  "description": "Ensures system integrity by maintaining original structure while updating and optimizing components for seamless, efficient performance.",
+  "language": "th",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

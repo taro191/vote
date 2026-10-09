@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VOTE - Democratic Decision &amp; Battle Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>.vml{--vml-bg:#F3F7FF;--vml-card:#FFFFFF;--vml-ink:#0F1F3D;--vml-mute:#55667F;--vml-line:#DFE8F5;--vml-acc:#1F6BFF;--vml-acc-soft:#E8F1FF;--vml-past:#B7D3FF;--vml-fut:#E4ECF8;
+--vml-shadow:0 1px 2px rgb(15 50 140/.05),0 12px 30px rgb(20 80 200/.10);
+background:var(--vml-bg);color:var(--vml-ink);font-family:"Plus Jakarta Sans","Noto Sans Thai",system-ui,sans-serif;line-height:1.55;font-variant-numeric:tabular-nums}
+@media (prefers-color-scheme:dark){.vml{--vml-bg:#081426;--vml-card:#122A4D;--vml-ink:#EAF3FF;--vml-mute:#9FB8D9;--vml-line:#27508A;--vml-acc:#6FB1FF;--vml-acc-soft:#1E4272;--vml-past:#3A78C4;--vml-fut:#173560;--vml-shadow:0 1px 2px rgb(0 0 0/.35),0 12px 30px rgb(0 0 0/.35)}}
+@media (prefers-color-scheme:dark){.vml .vml-btn:not(.vml-ghost),.vml .vml-chip[aria-pressed=true]{color:#06142B}.vml .vml-chip[aria-pressed=true] .vml-av{background:#06142B;color:#B7D3FF}}
+.vml *{box-sizing:border-box}
+.vml-root{height:100%;overflow-y:auto}
+.vml main{max-width:760px;margin:0 auto;padding:16px 16px 40px}
+.vml h1{font-size:1.9rem;line-height:1.2;margin:.4rem 0;letter-spacing:-.02em}
+.vml h2{font-size:1.05rem;font-weight:700;margin:0 0 .7rem;letter-spacing:-.01em}
+.vml .vml-card{background:var(--vml-card);border:1px solid var(--vml-line);border-radius:22px;padding:20px;margin:14px 0;display:block;box-shadow:var(--vml-shadow)}
+.vml .vml-mute{color:var(--vml-mute);font-size:.88rem}
+.vml .vml-chips,.vml .vml-legend,.vml .vml-row,.vml .vml-pills{display:flex;flex-wrap:wrap;gap:8px}
+.vml .vml-row{align-items:end;gap:12px}
+.vml .vml-row label{display:flex;flex-direction:column;font-size:.8rem;font-weight:600;color:var(--vml-mute);gap:6px}
+.vml .vml-chips{overflow-x:auto;flex-wrap:nowrap;padding:4px 2px 8px;scrollbar-width:none}
+.vml .vml-chip{flex:none;border:0;background:var(--vml-card);color:var(--vml-ink);border-radius:999px;padding:5px 14px 5px 5px;font:inherit;font-weight:600;font-size:.9rem;cursor:pointer;display:flex;gap:8px;align-items:center;box-shadow:var(--vml-shadow)}
+.vml .vml-chip[aria-pressed=true]{background:var(--vml-acc);color:#fff}
+.vml .vml-av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;font-weight:700;background:var(--vml-acc-soft);color:var(--vml-acc);box-shadow:0 0 0 2.5px var(--c,var(--vml-past))}
+.vml .vml-chip[aria-pressed=true] .vml-av{background:#fff;color:var(--vml-acc)}
+.vml .vml-hero{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.vml .vml-ring{position:relative;width:136px;height:136px;flex:none}
+.vml .vml-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.vml .vml-ring circle{fill:none;stroke-width:11}
+.vml .vml-ring-bg{stroke:var(--vml-fut)}.vml .vml-ring-fg{stroke:var(--vml-acc);stroke-linecap:round}
+.vml .vml-ring-text{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.vml .vml-ring-text b{font-size:1.7rem;line-height:1.1;letter-spacing:-.02em}.vml .vml-ring-text span{font-size:.75rem;color:var(--vml-mute)}
+.vml .vml-hero-info{flex:1;min-width:180px}
+.vml .vml-big{font-size:2.8rem;font-weight:800;line-height:1.05;letter-spacing:-.03em}
+.vml .vml-pills{margin-top:10px}
+.vml .vml-pills span{background:var(--vml-bg);border-radius:999px;padding:4px 12px;font-size:.8rem;font-weight:600;color:var(--vml-mute)}
+.vml .vml-bar{height:10px;border-radius:6px;background:var(--vml-fut);overflow:hidden;margin:0}
+.vml .vml-bar i{display:block;height:100%;background:var(--vml-acc);border-radius:6px}
+.vml .vml-votes{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.vml .vml-vb{display:flex;flex-direction:column;align-items:center;gap:4px;border:0;border-radius:18px;padding:14px 2px 12px;font:inherit;font-weight:700;font-size:.78rem;cursor:pointer;color:var(--vml-ink);min-height:84px;background:color-mix(in srgb,var(--c) 15%,var(--vml-card));transition:transform .15s,background .15s}
+.vml .vml-vb:active{transform:scale(.95)}
+.vml .vml-emo{font-size:1.8rem;line-height:1.1}
+.vml .vml-vb[aria-pressed=true]{background:var(--c);color:#fff;box-shadow:0 8px 20px color-mix(in srgb,var(--c) 45%,transparent)}
+.vml .vml-vb[data-v="3"][aria-pressed=true]{color:#3a2d00}
+.vml input,.vml select,.vml textarea{font:inherit;color:var(--vml-ink);background:var(--vml-bg);border:1px solid transparent;border-radius:12px;padding:10px 12px}
+.vml textarea{width:100%;margin:12px 0 10px;resize:vertical}
+.vml .vml-btn{font:inherit;font-weight:700;cursor:pointer;border-radius:12px;padding:10px 18px;background:var(--vml-acc);color:#fff;border:0}
+.vml .vml-btn.vml-ghost{background:var(--vml-acc-soft);color:var(--vml-ink)}
+.vml .vml-btn:disabled{opacity:.45;cursor:not-allowed}
+.vml :focus-visible{outline:3px solid var(--vml-acc);outline-offset:2px}
+.vml .vml-scroll{overflow-x:auto;max-width:100%;border-radius:12px}.vml canvas{display:block;cursor:pointer}
+.vml .vml-legend{font-size:.8rem;margin-top:12px;gap:12px;color:var(--vml-mute)}.vml .vml-legend span{display:flex;gap:6px;align-items:center}
+.vml .vml-legend i{width:12px;height:12px;border-radius:4px;display:inline-block}
+.vml .vml-year{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:5px}
+.vml .vml-d{aspect-ratio:1;border:0;border-radius:7px;background:var(--vml-past);padding:0;cursor:pointer;min-height:24px}
+.vml .vml-d.f{background:var(--vml-fut)}.vml .vml-d.t{box-shadow:0 0 0 2px var(--vml-ink)}
+.vml .vml-d[aria-pressed=true]{outline:3px solid var(--vml-acc);outline-offset:2px}
+.vml .vml-seg{display:inline-flex;background:var(--vml-bg);border-radius:14px;padding:4px;gap:2px;margin-bottom:14px}
+.vml .vml-seg button{border:0;background:transparent;color:var(--vml-mute);font:inherit;font-weight:700;font-size:.88rem;padding:7px 16px;border-radius:10px;cursor:pointer}
+.vml .vml-seg button[aria-pressed=true]{background:var(--vml-card);color:var(--vml-ink);box-shadow:var(--vml-shadow)}
+.vml .vml-dist{display:grid;grid-template-columns:64px 1fr 40px;gap:10px 12px;align-items:center;font-size:.88rem}
+.vml .vml-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 18px}
+.vml .vml-stat{background:var(--vml-bg);border-radius:16px;padding:14px}
+.vml .vml-stat b{font-size:1.45rem;display:block;letter-spacing:-.02em}
+.vml .vml-stat:first-child{background:var(--vml-acc-soft)}.vml .vml-stat:first-child b{color:var(--vml-acc)}
+.vml summary{cursor:pointer;font-weight:700;margin-bottom:12px}
+.vml-topbar{display:flex;gap:10px;align-items:center;background:rgb(255 255 255/.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #DFE8F5;color:#0F1F3D;padding:6px 10px;font-family:"Plus Jakarta Sans","Noto Sans Thai",system-ui,sans-serif}
+.vml-topbar button{border:0;background:#E8F1FF;color:#1550CC;font:inherit;font-weight:700;padding:7px 14px;border-radius:999px;cursor:pointer}
+.vml-topbar strong{font-size:1.05rem}
+@media (prefers-color-scheme:dark){.vml-topbar{background:rgb(18 42 77/.86);border-color:#27508A;color:#EAF3FF}.vml-topbar button{background:#1E4272;color:#A9CFFF}}
+
+:root{--nav:56px}
+html,body{margin:0}
+body.vml{min-height:100vh;padding-top:calc(var(--nav) + env(safe-area-inset-top,0px));padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.top{position:fixed;top:0;left:0;right:0;z-index:50;height:calc(var(--nav) + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px)}
+#voteframe{position:fixed;inset:0;width:100%;height:100%;height:100dvh;border:0;background:#F3F7FF}
+body[data-view=vote]{padding:0;overflow:hidden}body[data-view=vote] #app,body[data-view=vote] nav.top{display:none}
+body[data-view=life] #voteframe{display:none}
+</style>
+</head>
+<body class="vml" data-view="vote">
+<nav class="top vml-topbar"><button id="back" type="button">‹ กลับ</button><strong>Vote my life</strong></nav>
+<iframe id="voteframe" title="VOTE - Democratic Decision &amp; Battle Platform"></iframe>
+<main id="app"></main>
+<script id="vote-overrides" type="text/plain">
+:root {
+  --vote-canvas: #f3f7ff;
+  --vote-surface: #ffffff;
+  --vote-accent: #1f6bff;
+  --vote-accent-2: #19a7f2;
+  --vote-accent-strong: #1550cc;
+  --vote-accent-soft: #e8f1ff;
+  --vote-accent-border: #bfd6ff;
+  --vote-text: #0f1f3d;
+  --vote-muted: #55667f;
+  --vote-placeholder: #94a3ba;
+  --vote-border: #dfe8f5;
+  --vote-focus: color-mix(in srgb, var(--vote-accent) 34%, transparent);
+  --vote-shadow: 0 10px 30px rgb(20 80 200 / 14%);
+}
+
+[data-vote-hidden-section="democracy-lifecycle"] {
+  display: none !important;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+main,
+section,
+article,
+header,
+footer,
+nav,
+form,
+.grid,
+.flex {
+  min-width: 0;
+  max-width: 100%;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+button,
+[role="button"],
+a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button:not([class*="rounded-full"]),
+input,
+select,
+textarea {
+  min-height: 2.75rem;
+}
+
+button[class*="rounded-full"],
+[role="button"][class*="rounded-full"] {
+  min-height: 2.25rem;
+}
+
+button:focus-visible,
+[role="button"]:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--vote-focus) !important;
+  outline-offset: 2px;
+}
+
+[class~="bg-[#F3F7FF]"] {
+  background-color: var(--vote-canvas) !important;
+}
+
+[class~="bg-[#F3F7FF]/95"] {
+  background-color: color-mix(
+    in srgb,
+    var(--vote-canvas) 95%,
+    transparent
+  ) !important;
+}
+
+[class~="bg-[#1F6BFF]"] {
+  background-color: var(--vote-accent) !important;
+}
+
+[class~="hover:bg-[#1F6BFF]"]:hover {
+  background-color: var(--vote-accent-strong) !important;
+}
+
+[class~="bg-[#1F6BFF]/10"] {
+  background-color: color-mix(
+    in srgb,
+    var(--vote-accent) 10%,
+    transparent
+  ) !important;
+}
+
+[class~="bg-[#1F6BFF]/15"] {
+  background-color: color-mix(
+    in srgb,
+    var(--vote-accent) 15%,
+    transparent
+  ) !important;
+}
+
+[class~="bg-[#1F6BFF]/25"],
+[class~="bg-[#1F6BFF]/30"] {
+  background-color: color-mix(
+    in srgb,
+    var(--vote-accent) 28%,
+    transparent
+  ) !important;
+}
+
+[class~="bg-[#1F6BFF]/60"],
+[class~="bg-[#1F6BFF]/80"] {
+  background-color: color-mix(
+    in srgb,
+    var(--vote-accent) 78%,
+    transparent
+  ) !important;
+}
+
+[class~="bg-[#E8F1FF]"],
+[class~="bg-[#E8F1FF]"] {
+  background-color: var(--vote-accent-soft) !important;
+}
+
+[class~="text-[#1F6BFF]"],
+[class~="hover:text-[#1F6BFF]"]:hover {
+  color: var(--vote-accent) !important;
+}
+
+[class~="text-[#0F1F3D]"],
+[class~="hover:text-[#0F1F3D]"]:hover {
+  color: var(--vote-text) !important;
+}
+
+[class~="text-[#55667F]"] {
+  color: var(--vote-muted) !important;
+}
+
+[class~="text-[#94A3BA]"],
+[class~="placeholder:text-[#94A3BA]"]::placeholder {
+  color: var(--vote-placeholder) !important;
+}
+
+[class~="border-[#1F6BFF]"],
+[class~="focus:border-[#1F6BFF]"]:focus,
+[class~="hover:border-[#1F6BFF]"]:hover {
+  border-color: var(--vote-accent) !important;
+}
+
+[class~="border-[#1F6BFF]/40"] {
+  border-color: color-mix(
+    in srgb,
+    var(--vote-accent) 40%,
+    transparent
+  ) !important;
+}
+
+[class~="border-[#C9DEFF]"],
+[class~="border-[#B4D0FF]"] {
+  border-color: var(--vote-accent-border) !important;
+}
+
+[class~="border-[#DFE8F5]"],
+[class~="border-[#55667F]"] {
+  border-color: var(--vote-border) !important;
+}
+
+[class~="accent-[#1F6BFF]"] {
+  accent-color: var(--vote-accent) !important;
+}
+
+[class~="ring-[#1F6BFF]/30"],
+[class~="ring-[#1F6BFF]/40"],
+[class~="ring-[#1F6BFF]/50"] {
+  --tw-ring-color: var(--vote-focus) !important;
+}
+
+[class*="shadow-[0_"][class*="31,107,255"],
+[class~="shadow-orange-500/20"] {
+  box-shadow: var(--vote-shadow) !important;
+}
+
+::selection {
+  color: var(--vote-surface);
+  background: var(--vote-accent);
+}
+
+.grid > *,
+.flex > * {
+  min-width: 0;
+}
+
+[class~="overflow-x-auto"] {
+  max-width: 100%;
+  overscroll-behavior-inline: contain;
+  scrollbar-color: var(--vote-accent-border) transparent;
+  scrollbar-width: thin;
+}
+
+[class~="-mx-3"] {
+  margin-inline: 0 !important;
+  padding-inline: 0.125rem !important;
+}
+
+pre,
+code,
+[class*="font-mono"] {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 30rem) {
+  [class~="fixed"][class~="inset-0"] {
+    padding-inline: 0.5rem;
+  }
+
+  [class~="grid-cols-3"] {
+    gap: 0.375rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+[data-vml-entry] {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+  overflow: hidden;
+  padding: 1.125rem !important;
+  border: 1px solid var(--vote-accent-border) !important;
+  border-radius: 1.5rem !important;
+  color: var(--vote-text) !important;
+  text-align: left;
+  cursor: pointer;
+  background:
+    radial-gradient(circle at 92% 0%, var(--vote-accent-soft), transparent 42%),
+    var(--vote-surface) !important;
+  box-shadow: 0 0.5rem 1.75rem rgb(20 80 200 / 12%) !important;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+[data-vml-entry]::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0.25rem;
+  background: linear-gradient(180deg, var(--vote-accent), var(--vote-accent-2));
+  content: "";
+}
+
+[data-vml-entry]:hover {
+  border-color: var(--vote-accent) !important;
+  box-shadow: 0 0.875rem 2.25rem rgb(20 80 200 / 22%) !important;
+  transform: translateY(-0.125rem);
+}
+
+[data-vml-entry]:active {
+  transform: translateY(0);
+}
+
+.vml-entry-icon {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  border: 1px solid var(--vote-accent-border);
+  border-radius: 1.125rem;
+  color: var(--vote-accent);
+  background: var(--vote-accent-soft);
+}
+
+.vml-entry-icon svg {
+  width: 1.625rem;
+  height: 1.625rem;
+}
+
+.vml-entry-copy {
+  min-width: 0;
+}
+
+.vml-entry-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.vml-entry-badge {
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  color: var(--vote-surface);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: var(--vote-accent);
+}
+
+.vml-entry-description {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--vote-muted);
+  font-size: 0.75rem;
+  line-height: 1.55;
+}
+
+.vml-entry-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 999px;
+  color: var(--vote-surface);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  background: linear-gradient(135deg, var(--vote-accent), var(--vote-accent-2));
+}
+
+.vml-entry-cta svg {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 180ms ease;
+}
+
+[data-vml-entry]:hover .vml-entry-cta svg {
+  transform: translateX(0.125rem);
+}
+
+@media (max-width: 30rem) {
+  [data-vml-entry] {
+    gap: 0.75rem;
+    padding: 1rem !important;
+  }
+
+  .vml-entry-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+  }
+
+  .vml-entry-cta {
+    width: 2.25rem;
+    height: 2.25rem;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .vml-entry-cta span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+:root { --color-orange-400: #6fb1ff; --color-orange-500: #1f6bff; }
+[class~="from-orange-500"][class~="to-amber-400"] { --tw-gradient-to: #19a7f2; }
+
+/* ---- modern accent: indigo -> violet on primary actions ---- */
+[class~="bg-[#1F6BFF]"] {
+  background-image: linear-gradient(135deg, var(--vote-accent), var(--vote-accent-2));
+}
+[class~="hover:bg-[#1F6BFF]"]:hover {
+  background-image: none;
+}
+
+/* ---- night mode: keep every dark surface in the same violet-ink family ---- */
+[class~="bg-slate-950"] { background-color: #081426 !important; }
+[class~="bg-slate-900"] { background-color: #0d1d38 !important; }
+[class~="bg-slate-800"] { background-color: #122a4d !important; }
+[class~="bg-slate-700"] { background-color: #1e4272 !important; }
+[class~="border-slate-800"] { border-color: #1e4272 !important; }
+[class~="border-slate-700"] { border-color: #27508a !important; }
+</script>
+<script id="vml-inj" type="text/plain">(function(){
+var L="วงจรชีวิตประชาธิปไตย (Democracy Lifecycle)";
+function mk(){var c=document.createElement("button");c.type="button";c.setAttribute("data-vml-entry","1");
+c.setAttribute("aria-label","เปิด Vote my life เพื่อให้คะแนนชีวิตประจำวัน");
+c.innerHTML='<span class="vml-entry-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3M16 2v3M3.5 9h17"/><rect x="3.5" y="4" width="17" height="17" rx="3"/><path d="m8 15 2.2 2.2L16.5 11"/></svg></span><span class="vml-entry-copy"><span class="vml-entry-title">Vote my life<span class="vml-entry-badge">ใหม่</span></span><span class="vml-entry-description">36,500 วัน · ให้คะแนนชีวิตทุกวัน ดูว่าใช้ไปเท่าไร เหลือเท่าไร</span></span><span class="vml-entry-cta" aria-hidden="true"><span>เริ่มโหวต</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.5 5.5 5.5-5.5 5.5"/></svg></span>';
+c.onclick=function(){parent.postMessage({vml:"open"},"*")};return c}
+function h(){
+var s=Array.prototype.find.call(document.querySelectorAll("span"),function(e){return e.textContent&&e.textContent.trim()===L});var c=s&&s.closest(".rounded-3xl");if(c)c.setAttribute("data-vote-hidden-section","democracy-lifecycle");
+var t=Array.prototype.find.call(document.querySelectorAll("h3"),function(e){return e.textContent.indexOf("(Profile)")>-1&&e.textContent.indexOf("พื้นที่เสียงของคุณ")>-1});
+var card=t&&t.closest(".rounded-3xl");
+if(card&&!(card.nextElementSibling&&card.nextElementSibling.hasAttribute("data-vml-entry")))card.insertAdjacentElement("afterend",mk())}
+function i(){h();new MutationObserver(h).observe(document.body,{childList:true,subtree:true})}
+if(document.body)i();else document.addEventListener("DOMContentLoaded",i)})();</script>
+<script>
+var L=[null,{t:"แย่มาก",c:"#E5484D",e:"😭"},{t:"แย่",c:"#F76B15",e:"🙁"},{t:"พอใช้",c:"#F5B800",e:"😐"},{t:"ดี",c:"#46B97A",e:"🙂"},{t:"ดีมาก",c:"#0F9D6B",e:"😄"}];
+var S={profiles:[],active:0,remind:{on:false,time:"20:00"}},sel=null,rng=30,mem=null,addMode=false,cell=4,lastRd="";
+function load(){try{var r=localStorage.getItem("vml");if(r)S=JSON.parse(r)}catch(e){if(mem)S=mem}}
+function save(){mem=S;try{localStorage.setItem("vml",JSON.stringify(S))}catch(e){}}
+function utc(s){var p=s.split("-");return Date.UTC(+p[0],+p[1]-1,+p[2])}
+function key(ms){return new Date(ms).toISOString().slice(0,10)}
+function todayMs(){var n=new Date();return Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())}
+function P(){return S.profiles[S.active]}
+function total(p){return p.target*365}
+function idxOf(p,ms){return Math.round((ms-utc(p.birth))/864e5)}
+function vAt(p,i){return p.votes[key(utc(p.birth)+i*864e5)]}
+function thDate(ms){return new Date(ms).toLocaleDateString("th-TH",{timeZone:"UTC",day:"numeric",month:"short",year:"numeric"})}
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")}
+function setupForm(first){
+ var p=first?{name:"",birth:"",target:100}:P();
+ return '<div class="vml-card"><h2>'+(first?"สร้างตารางชีวิต":"ตั้งค่าโปรไฟล์")+'</h2><div class="vml-row">'+
+ '<label>ชื่อ<input id="fn" value="'+esc(p.name)+'" maxlength="20"></label>'+
+ '<label>วันเกิด<input id="fb" type="date" value="'+p.birth+'" max="'+key(todayMs())+'"></label>'+
+ '<label>เป้าหมายอายุ (ปี)<input id="ft" type="number" min="30" max="120" value="'+p.target+'" style="width:90px"></label>'+
+ '<button class="vml-btn" id="fs">'+(first?"สร้าง":"บันทึก")+'</button></div></div>';
+}
+function render(){
+ var a=$("#app");
+ if(!S.profiles.length){a.innerHTML='<h1>Vote my life</h1><p class="vml-mute">36,500 วัน หนึ่งวันหนึ่งคะแนน กรอกวันเกิดเพื่อดูว่าใช้ไปเท่าไรและเหลือเท่าไร</p>'+setupForm(true)+'<button class="vml-btn vml-ghost" id="demo">ลองดูด้วยข้อมูลตัวอย่าง</button>';bind();return}
+ var p=P(),T=total(p),ti=idxOf(p,todayMs());if(sel===null)sel=Math.max(0,Math.min(ti,T-1));
+ var used=Math.max(0,Math.min(ti+1,T)),left=T-used,pc=(used/T*100).toFixed(1);
+ var chips=S.profiles.map(function(q,i){var v=q.votes[key(todayMs())];return '<button class="vml-chip" data-p="'+i+'" aria-pressed="'+(i==S.active)+'"><span class="vml-av" style="--c:'+(v?L[v.v].c:"var(--vml-past)")+'">'+esc(q.name.slice(0,1))+'</span>'+esc(q.name)+'</button>'}).join("");
+ if(S.profiles.length<12)chips+='<button class="vml-chip" id="addp">+ เพิ่มสมาชิก ('+S.profiles.length+'/12)</button>';
+ var yr=Math.floor(sel/365),days="";
+ for(var i=yr*365;i<Math.min((yr+1)*365,T);i++){var v=vAt(p,i);days+='<button class="vml-d'+(i>ti?" f":"")+(i==ti?" t":"")+'" data-i="'+i+'" aria-pressed="'+(i==sel)+'" aria-label="'+thDate(utc(p.birth)+i*864e5)+'"'+(v?' style="background:'+L[v.v].c+'"':"")+'></button>'}
+ var sms=utc(p.birth)+sel*864e5,sv=vAt(p,sel),future=sel>ti;
+ a.innerHTML='<div class="vml-chips">'+chips+'</div>'+
+ '<div class="vml-card vml-hero"><div class="vml-ring"><svg viewBox="0 0 120 120" role="img" aria-label="ใช้ไป '+pc+' เปอร์เซ็นต์"><circle class="vml-ring-bg" cx="60" cy="60" r="54"/><circle class="vml-ring-fg" cx="60" cy="60" r="54" stroke-dasharray="'+(2*Math.PI*54*used/T)+' '+(2*Math.PI*54)+'"/></svg><div class="vml-ring-text"><b>'+pc+'%</b><span>ใช้ไปแล้ว</span></div></div>'+
+ '<div class="vml-hero-info"><div class="vml-mute">'+esc(p.name)+'</div><div class="vml-big">'+left.toLocaleString()+'</div><div class="vml-mute">วันที่เหลือ จากเป้าหมาย '+p.target+' ปี</div><div class="vml-pills"><span>ผ่านไป '+used.toLocaleString()+' วัน</span><span>รวม '+T.toLocaleString()+' วัน</span></div></div></div>'+
+ '<div class="vml-card"><h2>Vote วันที่ '+thDate(sms)+(sel==ti?" (วันนี้)":"")+'</h2>'+(future?'<p class="vml-mute">วันนี้ยังมาไม่ถึง เลือกวันที่ผ่านมาแล้วเพื่อ vote</p>':
+ '<div class="vml-votes">'+[5,4,3,2,1].map(function(v){return '<button class="vml-vb" data-v="'+v+'" aria-pressed="'+(!!sv&&sv.v==v)+'" style="--c:'+L[v].c+'"><span class="vml-emo">'+L[v].e+'</span>'+L[v].t+'</button>'}).join("")+'</div>'+
+ '<textarea id="note" rows="2" placeholder="โน้ตสั้นๆ ของวันนี้ (ไม่บังคับ)">'+esc(sv&&sv.n||"")+'</textarea>'+
+ '<div class="vml-row" style="margin-top:8px"><button class="vml-btn vml-ghost" id="clr">ล้าง vote ของวันนี้</button></div>')+'</div>'+
+ '<div class="vml-card"><h2>ตารางชีวิต '+T.toLocaleString()+' ช่อง</h2><p class="vml-mute">1 แถว = 1 ปีของอายุ (แถวบนสุดคืออายุ 0) แตะแถวเพื่อดูปีนั้น</p><div class="vml-scroll"><canvas id="cv" aria-label="ตารางชีวิตทั้งหมด"></canvas></div>'+
+ '<div class="vml-legend">'+[5,4,3,2,1].map(function(v){return '<span><i style="background:'+L[v].c+'"></i>'+L[v].t+'</span>'}).join("")+'<span><i style="background:var(--vml-past)"></i>ยังไม่ได้ vote</span><span><i style="background:var(--vml-fut)"></i>อนาคต</span></div></div>'+
+ '<div class="vml-card"><h2>อายุ '+yr+' ปี · '+Math.min(365,T-yr*365)+' วัน</h2><div class="vml-year">'+days+'</div>'+
+ '<div class="vml-row" style="margin-top:10px"><button class="vml-btn vml-ghost" id="py"'+(yr==0?" disabled":"")+'>ปีก่อนหน้า</button><button class="vml-btn vml-ghost" id="ny"'+((yr+1)*365>=T?" disabled":"")+'>ปีถัดไป</button><button class="vml-btn vml-ghost" id="gt">กลับมาวันนี้</button></div></div>'+
+ summary(p,ti)+
+ '<details class="vml-card"><summary>สมาชิก การแจ้งเตือน และตั้งค่า</summary>'+setupForm(false)+
+ '<div class="vml-row"><label>แจ้งเตือนทุกวัน<select id="rt"><option value="off">ปิด</option><option value="on">เปิด</option></select></label><label>เวลา<input id="rtm" type="time" value="'+S.remind.time+'"></label>'+(S.profiles.length>1?'<button class="vml-btn vml-ghost" id="delp">ลบสมาชิกนี้</button>':"")+'</div>'+
+ '<p class="vml-mute">ต้นแบบนี้แจ้งเตือนได้เฉพาะตอนเปิดหน้านี้ค้างไว้ ในแอปจริงจะใช้ push notification เวลา 20:00 และข้ามถ้า vote แล้ว ข้อมูลเก็บในเบราว์เซอร์นี้เท่านั้น สมาชิกแต่ละคนเป็นโปรไฟล์แยกกัน</p>'+
+ '<div class="vml-row"><button class="vml-btn vml-ghost" id="demo">ใส่ข้อมูลตัวอย่าง</button><button class="vml-btn vml-ghost" id="exp">ส่งออก CSV</button></div></details>';
+ $("#rt").value=S.remind.on?"on":"off";
+ draw(p,T,ti);bind();
+}
+function summary(p,ti){
+ var n=rng,b=utc(p.birth),vs=[],pv=[],best=null,worst=null,cnt=[0,0,0,0,0,0],i,v;
+ for(i=ti-n+1;i<=ti;i++){v=i>=0&&vAt(p,i);if(v){vs.push(v.v);cnt[v.v]++;var o={i:i,v:v.v,n:v.n};if(!best||v.v>best.v)best=o;if(!worst||v.v<worst.v)worst=o}}
+ for(i=ti-2*n+1;i<=ti-n;i++){v=i>=0&&vAt(p,i);if(v)pv.push(v.v)}
+ function av(a){return a.length?a.reduce(function(x,y){return x+y},0)/a.length:null}
+ var A=av(vs),B=av(pv),st=0;
+ for(i=ti;i>=0;i--){v=vAt(p,i);if(v&&v.v>=4)st++;else if(i==ti&&!v)continue;else break}
+ var dl=A!==null&&B!==null?(A-B):null;
+ var tabs=[[30,"1 เดือน"],[90,"3 เดือน"],[365,"1 ปี"]].map(function(t){return '<button data-r="'+t[0]+'" aria-pressed="'+(rng==t[0])+'">'+t[1]+'</button>'}).join("");
+ var dist=[5,4,3,2,1].map(function(k){var q=vs.length?cnt[k]/vs.length*100:0;return '<span>'+L[k].t+'</span><div class="vml-bar"><i style="width:'+q+'%;background:'+L[k].c+'"></i></div><span>'+q.toFixed(0)+'%</span>'}).join("");
+ return '<div class="vml-card"><h2>สรุป '+n+' วันล่าสุด</h2><div class="vml-seg">'+tabs+'</div>'+(vs.length?
+ '<div class="vml-stats"><div class="vml-stat"><b>'+A.toFixed(2)+' / 5</b><span class="vml-mute">คะแนนเฉลี่ย ('+vs.length+' วันที่ vote)</span></div>'+
+ '<div class="vml-stat"><b>'+(dl===null?"–":(dl>=0?"▲ ":"▼ ")+Math.abs(dl).toFixed(2))+'</b><span class="vml-mute">เทียบช่วงก่อนหน้า</span></div>'+
+ '<div class="vml-stat"><b>'+st+' วัน</b><span class="vml-mute">วันดี/ดีมากติดต่อกัน</span></div>'+
+ '<div class="vml-stat"><b>'+L[best.v].t+'</b><span class="vml-mute">ดีที่สุด: '+thDate(b+best.i*864e5)+(best.n?" · "+esc(best.n):"")+'</span></div>'+
+ '<div class="vml-stat"><b>'+L[worst.v].t+'</b><span class="vml-mute">แย่ที่สุด: '+thDate(b+worst.i*864e5)+(worst.n?" · "+esc(worst.n):"")+'</span></div></div><div class="vml-dist">'+dist+'</div>':
+ '<p class="vml-mute">ยังไม่มีการ vote ในช่วงนี้ เริ่มจาก vote วันนี้ด้านบน</p>')+'</div>';
+}
+function draw(p,T,ti){
+ var cv=$("#cv");cv.width=365*cell;cv.height=p.target*cell;var g=cv.getContext("2d"),cs=getComputedStyle(document.body);
+ var past=cs.getPropertyValue("--vml-past").trim(),fut=cs.getPropertyValue("--vml-fut").trim(),ink=cs.getPropertyValue("--vml-ink").trim(),acc=cs.getPropertyValue("--vml-acc").trim();
+ for(var i=0;i<T;i++){var v=vAt(p,i);g.fillStyle=v?L[v.v].c:(i>ti?fut:past);g.fillRect((i%365)*cell,Math.floor(i/365)*cell,cell-1,cell-1)}
+ if(ti>=0&&ti<T){g.strokeStyle=ink;g.lineWidth=1.5;g.strokeRect((ti%365)*cell-.5,Math.floor(ti/365)*cell-.5,cell+1,cell+1)}
+ g.strokeStyle=acc;g.lineWidth=2;g.strokeRect(1,Math.floor(sel/365)*cell,365*cell-2,cell-1);
+ cv.onclick=function(e){var r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*cv.width/r.width,y=(e.clientY-r.top)*cv.height/r.height;
+  sel=Math.min(Math.floor(y/cell)*365+Math.min(364,Math.floor(x/cell)),T-1);render()}
+}
+function setVote(v){var p=P(),k=key(utc(p.birth)+sel*864e5);p.votes[k]={v:v,n:$("#note").value};save();render()}
+function bind(){
+ var e;
+ if(e=$("#fs"))e.onclick=function(){var n=$("#fn").value.trim(),b=$("#fb").value,t=+$("#ft").value;if(!n||!b||!(t>=30&&t<=120)){alert("กรอกชื่อ วันเกิด และเป้าหมายอายุ (30–120 ปี) ให้ครบ");return}
+  if(!S.profiles.length||addMode){S.profiles.push({name:n,birth:b,target:t,votes:{}});S.active=S.profiles.length-1;addMode=false}else{var p=P();p.name=n;p.birth=b;p.target=t}sel=null;save();render()};
+ if(e=$("#demo"))e.onclick=demo;
+ if(e=$("#addp"))e.onclick=function(){addMode=true;$("#app").insertAdjacentHTML("afterbegin",setupForm(true));bind();$("#fn").focus()};
+ if(e=$("#delp"))e.onclick=function(){if(confirm("ลบโปรไฟล์ "+P().name+" และข้อมูลทั้งหมด?")){S.profiles.splice(S.active,1);S.active=0;sel=null;save();render()}};
+ if(e=$("#exp"))e.onclick=exportCsv;
+ if(e=$("#clr"))e.onclick=function(){var p=P();delete p.votes[key(utc(p.birth)+sel*864e5)];save();render()};
+ if(e=$("#py"))e.onclick=function(){sel=Math.max(0,sel-365);render()};
+ if(e=$("#ny"))e.onclick=function(){sel=Math.min(total(P())-1,sel+365);render()};
+ if(e=$("#gt"))e.onclick=function(){sel=Math.min(idxOf(P(),todayMs()),total(P())-1);render()};
+ if(e=$("#rt"))e.onchange=function(){S.remind.on=this.value=="on";if(S.remind.on&&window.Notification&&Notification.permission=="default")try{Notification.requestPermission()}catch(x){}save()};
+ if(e=$("#rtm"))e.onchange=function(){S.remind.time=this.value||"20:00";save()};
+ document.querySelectorAll(".vml-vb").forEach(function(b){b.onclick=function(){setVote(+b.dataset.v)}});
+ document.querySelectorAll(".vml-d").forEach(function(b){b.onclick=function(){sel=+b.dataset.i;render()}});
+ document.querySelectorAll("[data-p]").forEach(function(b){b.onclick=function(){S.active=+b.dataset.p;sel=null;save();render()}});
+ document.querySelectorAll("[data-r]").forEach(function(b){b.onclick=function(){rng=+b.dataset.r;render()}});
+ if(e=$("#note"))e.onchange=function(){var p=P(),k=key(utc(p.birth)+sel*864e5);if(p.votes[k]){p.votes[k].n=this.value;save()}};
+}
+function demo(){
+ if(S.profiles.length>=12)return;
+ var d=new Date(todayMs());d.setUTCFullYear(d.getUTCFullYear()-32);var v={},ti=Math.round((todayMs()-d.getTime())/864e5);
+ for(var i=ti-400;i<ti;i++){var r=Math.random();if(r<.12)continue;v[key(d.getTime()+i*864e5)]={v:r<.15?1:r<.3?2:r<.55?3:r<.85?4:5,n:""}}
+ S.profiles.push({name:"ตัวอย่าง "+(S.profiles.length+1),birth:key(d.getTime()),target:100,votes:v});S.active=S.profiles.length-1;sel=null;save();render();
+}
+function exportCsv(){var p=P(),rows=["date,score,level,note"];Object.keys(p.votes).sort().forEach(function(k){var v=p.votes[k];rows.push(k+","+v.v+","+L[v.v].t+',"'+(v.n||"").replace(/"/g,'""')+'"')});
+ var w=window.open("","_blank");if(w){w.document.write("<pre>"+rows.join("\n").replace(/</g,"&lt;")+"</pre>")}else alert("เบราว์เซอร์บล็อกหน้าต่างใหม่")}
+setInterval(function(){if(!S.remind.on||!S.profiles.length)return;var n=new Date(),h=("0"+n.getHours()).slice(-2)+":"+("0"+n.getMinutes()).slice(-2),id=h+key(todayMs());
+ if(h==S.remind.time&&id!=lastRd&&!P().votes[key(todayMs())]&&window.Notification&&Notification.permission=="granted"){lastRd=id;new Notification("Vote my life",{body:"วันนี้เป็นอย่างไรบ้าง? มา vote ให้วันนี้หน่อย"})}},20000);
+load();render();
+</script>
+<script>
+(function(){
+var LABEL="วงจรชีวิตประชาธิปไตย (Democracy Lifecycle)";
+var OV=document.getElementById("vote-overrides").textContent;
+var f=document.getElementById("voteframe");
+f.src="vote-app.html";
+function show(v){document.body.dataset.view=v;window.scrollTo(0,0)}
+document.getElementById("back").onclick=function(){show("vote")};
+window.addEventListener("message",function(e){if(e.data&&e.data.vml==="open")show("life")});
+show("vote");
+})();
+</script>
+<script>(function () {
+  var voteDetails = {
+    "คืนนี้ทีมเราควรกินอะไรกันดี?": {
+      creator: "น้องมิ้นท์",
+      detail:
+        "ทีมมีตัวเลือกมื้อเย็นหลายแบบและอยากให้ทุกคนได้มีส่วนร่วมตัดสินใจอย่างรวดเร็ว โดยไม่ต้องถกกันในแชตยาว ๆ",
+      purpose: "เลือกเมนูที่ได้คะแนนสูงสุดสำหรับมื้อเย็นคืนนี้",
+    },
+    "ควรปรับปรุงสวนสาธารณะประจำชุมชนด้านไหนก่อน?": {
+      creator: "ชุมชนสุขใจ",
+      detail:
+        "ชุมชนต้องการรวบรวมความต้องการที่สำคัญที่สุดจากผู้ใช้งานสวนจริง ก่อนจัดลำดับแผนปรับปรุงพื้นที่ส่วนกลาง",
+      purpose: "นำผลโหวตไปเสนอเป็นโครงการปรับปรุงลำดับแรกของชุมชน",
+    },
+    "ทริปประจำปีบริษัท ปีนี้ไปที่ไหนดี?": {
+      creator: "HR ทีมสร้างสุข",
+      detail:
+        "ฝ่ายบุคคลต้องการให้พนักงานมีส่วนร่วมเลือกจุดหมายที่ตรงกับความสนใจของคนส่วนใหญ่ ก่อนเริ่มวางแผนการเดินทาง",
+      purpose: "สรุปจุดหมายยอดนิยมเพื่อจัดทำแผนและงบประมาณทริปประจำปี",
+    },
+    "เห็นด้วยกับการเพิ่มเลนจักรยานบนถนนสายหลักของเมืองหรือไม่?": {
+      creator: "สภาพลเมืองรุ่นใหม่",
+      detail:
+        "เมืองกำลังพิจารณาพื้นที่เดินทางปลอดภัยสำหรับจักรยาน จึงต้องการรับฟังทั้งเสียงสนับสนุน ข้อกังวล และความต้องการข้อมูลเพิ่มเติม",
+      purpose: "ใช้ระดับความคิดเห็นประกอบข้อเสนอเชิงนโยบายต่อหน่วยงานเมือง",
+    },
+    "ซีรีส์ที่ควรดูมาราธอนสุดสัปดาห์นี้?": {
+      creator: "พี่โอ๊ต",
+      detail:
+        "กลุ่มเพื่อนมีซีรีส์ในลิสต์หลายเรื่องและอยากเลือกเรื่องที่ทุกคนสนใจร่วมกันมากที่สุดสำหรับกิจกรรมสุดสัปดาห์",
+      purpose: "เลือกซีรีส์หนึ่งเรื่องสำหรับดูมาราธอนร่วมกัน",
+    },
+    "ชมรมหนังสือควรจัดกิจกรรมประจำเดือนแบบไหน?": {
+      creator: "ชมรมคนรักหนังสือ",
+      detail:
+        "ชมรมต้องการปรับกิจกรรมให้ตรงกับรูปแบบที่สมาชิกอยากเข้าร่วมจริง และเปิดโอกาสให้สมาชิกทุกกลุ่มแสดงความคิดเห็น",
+      purpose: "กำหนดรูปแบบกิจกรรมหลักของชมรมในเดือนถัดไป",
+    },
+    "ควรเปลี่ยนวันประชุมทีมประจำสัปดาห์เป็นวันไหน?": {
+      creator: "ทีมผลิตภัณฑ์",
+      detail:
+        "เวลาประชุมปัจจุบันเริ่มไม่สะดวกสำหรับสมาชิกบางส่วน ทีมจึงต้องการหาช่วงเวลาที่กระทบตารางงานของคนน้อยที่สุด",
+      purpose: "กำหนดวันประชุมประจำสัปดาห์ที่สมาชิกส่วนใหญ่เข้าร่วมได้",
+    },
+    "ควรเปิดให้โหวตงบประมาณเล็กๆ ของเขตผ่านแอปทุกไตรมาสหรือไม่?": {
+      creator: "เขตเมืองใหม่",
+      detail:
+        "เขตกำลังศึกษารูปแบบงบประมาณแบบมีส่วนร่วม และต้องการทราบว่าประชาชนเห็นด้วยกับการเปิดโหวตผ่านแอปบ่อยเพียงใด",
+      purpose: "ประเมินความต้องการก่อนทดลองระบบโหวตงบประมาณของเขต",
+    },
+  };
+
+  var styleText = [
+    "[data-public-vote-page] > div:first-child{position:relative;overflow:hidden;padding:18px;border-radius:24px;background:linear-gradient(135deg,var(--vote-accent),var(--vote-accent-2));box-shadow:0 14px 32px rgb(31 107 255 / 22%)}",
+    "[data-public-vote-page] > div:first-child:after{content:'';position:absolute;width:120px;height:120px;right:-48px;top:-70px;border-radius:999px;background:rgb(255 255 255 / 16%)}",
+    "[data-public-vote-page] > div:first-child h2,[data-public-vote-page] > div:first-child p{color:white!important}",
+    "[data-public-vote-page] > div:first-child button{position:relative;background:white!important;color:var(--vote-accent)!important;box-shadow:0 6px 18px rgb(15 31 61 / 16%)}",
+    "[data-public-vote-card]{--card-accent:var(--vote-accent);position:relative;overflow:hidden;background:linear-gradient(155deg,color-mix(in srgb,var(--card-accent) 9%,var(--vote-surface)) 0%,var(--vote-surface) 42%)!important;border-color:color-mix(in srgb,var(--card-accent) 28%,var(--vote-border))!important}",
+    "[data-public-vote-card]:before{content:'';position:absolute;inset:0 auto 0 0;width:4px;background:var(--card-accent)}",
+    "[data-public-vote-card='1']{--card-accent:#1f6bff}",
+    "[data-public-vote-card='2']{--card-accent:#0b76b8}",
+    "[data-public-vote-card='3']{--card-accent:#4f5fe0}",
+    "[data-public-vote-card='4']{--card-accent:#0b7f57}",
+    "[data-vote-creator]{display:flex;align-items:center;gap:7px;margin-top:-2px;padding:7px 9px;border-radius:12px;background:color-mix(in srgb,var(--card-accent,var(--vote-accent)) 9%,transparent);color:var(--vote-muted);font-size:10px;font-weight:700}",
+    "[data-vote-creator] svg{width:14px;height:14px;flex:none;color:var(--card-accent,var(--vote-accent))}",
+    "[data-vote-creator] strong{color:var(--vote-text);font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+    "[data-vote-detail]{position:relative;overflow:hidden;padding:16px;border:1px solid var(--vote-accent-border);border-radius:20px;background:linear-gradient(145deg,var(--vote-accent-soft),color-mix(in srgb,var(--vote-accent-2) 8%,var(--vote-surface)))}",
+    "[data-vote-detail]:before{content:'';position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(var(--vote-accent),var(--vote-accent-2))}",
+    "[data-vote-detail] .vote-detail-title{display:flex;align-items:center;gap:7px;margin:0 0 7px;color:var(--vote-accent);font-size:12px;font-weight:800}",
+    "[data-vote-detail] .vote-detail-title svg{width:16px;height:16px;flex:none}",
+    "[data-vote-detail] .vote-detail-copy{margin:0;color:var(--vote-text);font-size:12px;line-height:1.65}",
+    "[data-vote-detail] .vote-purpose{margin-top:11px;padding-top:10px;border-top:1px solid var(--vote-accent-border);color:var(--vote-muted);font-size:11px;line-height:1.55}",
+    "[data-vote-detail] .vote-purpose strong{color:var(--vote-accent)}",
+    "[data-extra-battles]{display:grid;gap:10px}",
+    "[data-extra-battles] .extra-battles-heading{display:flex;align-items:center;justify-content:space-between;padding:0 3px}",
+    "[data-extra-battles] .extra-battles-heading strong{color:var(--vote-text);font-size:13px;font-weight:800}",
+    "[data-extra-battles] .extra-battles-heading span{color:var(--vote-muted);font-size:10px;font-weight:700}",
+    "[data-extra-battle]{--battle-a:#1f6bff;--battle-b:#0a8579;position:relative;overflow:hidden;padding:15px;border:1px solid var(--vote-border);border-radius:22px;background:var(--vote-surface);box-shadow:0 6px 20px rgb(15 50 140 / 7%)}",
+    "[data-extra-battle='friendly']{--battle-a:#4f5fe0;--battle-b:#0b76b8}",
+    "[data-extra-battle='decision']{--battle-a:#0a8579;--battle-b:#1f6bff}",
+    "[data-extra-battle] .extra-battle-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px}",
+    "[data-extra-battle] .extra-battle-tag{display:flex;align-items:center;gap:6px;color:var(--battle-a);font-size:10px;font-weight:800;letter-spacing:.02em}",
+    "[data-extra-battle] .extra-battle-tag:before{content:'';width:7px;height:7px;border-radius:999px;background:var(--battle-a);box-shadow:0 0 0 4px color-mix(in srgb,var(--battle-a) 13%,transparent)}",
+    "[data-extra-battle] .extra-battle-meta{color:var(--vote-muted);font-size:10px;font-weight:650}",
+    "[data-extra-battle] .extra-battle-title{margin:0 0 4px;color:var(--vote-text);font-size:13px;font-weight:800}",
+    "[data-extra-battle] .extra-battle-creator{margin:0 0 12px;color:var(--vote-muted);font-size:10px;font-weight:650}",
+    "[data-extra-battle] .extra-battle-score{display:flex;height:8px;overflow:hidden;border-radius:999px;background:var(--vote-accent-soft)}",
+    "[data-extra-battle] .extra-battle-score span{height:100%;transition:width .35s ease}",
+    "[data-extra-battle] .extra-battle-score .side-a{background:var(--battle-a)}",
+    "[data-extra-battle] .extra-battle-score .side-b{background:var(--battle-b)}",
+    "[data-extra-battle] .extra-battle-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}",
+    "[data-extra-battle] .extra-battle-choice{display:flex;align-items:center;justify-content:space-between;gap:5px;min-height:42px;padding:8px 10px;border:1px solid color-mix(in srgb,var(--choice-color) 25%,var(--vote-border));border-radius:14px;background:color-mix(in srgb,var(--choice-color) 7%,var(--vote-surface));color:var(--choice-color);font:inherit;font-size:11px;font-weight:800;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}",
+    "[data-extra-battle] .extra-battle-choice:first-child{--choice-color:var(--battle-a)}",
+    "[data-extra-battle] .extra-battle-choice:last-child{--choice-color:var(--battle-b)}",
+    "[data-extra-battle] .extra-battle-choice:hover{transform:translateY(-1px);box-shadow:0 5px 14px color-mix(in srgb,var(--choice-color) 13%,transparent)}",
+    "[data-extra-battle] .extra-battle-choice[aria-pressed='true']{color:white;background:var(--choice-color);border-color:var(--choice-color)}",
+    "[data-extra-battle] .extra-battle-choice span:last-child{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px}",
+    "@media (hover:hover){[data-public-vote-card]:hover{transform:translateY(-3px);border-color:var(--card-accent)!important;box-shadow:0 12px 28px color-mix(in srgb,var(--card-accent) 16%,transparent)!important}}",
+  ].join("");
+
+  var personIcon =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path></svg>';
+  var detailIcon =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z"></path><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>';
+
+  function safeText(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function detailFor(question) {
+    return (
+      voteDetails[question] || {
+        creator: "ผู้สร้างโหวต",
+        detail:
+          "ผู้สร้างเปิดโหวตนี้เพื่อรวบรวมความคิดเห็นจากผู้มีส่วนร่วมอย่างโปร่งใส และช่วยให้การตัดสินใจสะท้อนเสียงของคนส่วนใหญ่",
+        purpose: "ใช้ผลโหวตเป็นข้อมูลประกอบการตัดสินใจในประเด็นนี้",
+      }
+    );
+  }
+
+  function enhancePublicVotes(doc) {
+    var publicHeading = Array.from(doc.querySelectorAll("h2")).find(function (
+      heading,
+    ) {
+      return heading.textContent.trim() === "โหวตสาธารณะ";
+    });
+    if (!publicHeading) return;
+
+    var page = publicHeading.closest(".space-y-3");
+    if (page) page.setAttribute("data-public-vote-page", "true");
+
+    Array.from(page.querySelectorAll("h3")).forEach(function (heading, index) {
+      if (heading.closest(".fixed")) return;
+      var card = heading.parentElement;
+      if (!card || card.hasAttribute("data-public-vote-card")) return;
+
+      var question = heading.textContent.trim();
+      var data = detailFor(question);
+      card.setAttribute("data-public-vote-card", String((index % 4) + 1));
+
+      var creator = doc.createElement("div");
+      creator.setAttribute("data-vote-creator", "true");
+      creator.innerHTML =
+        personIcon +
+        '<span>สร้างโดย</span><strong>' +
+        safeText(data.creator) +
+        "</strong>";
+      heading.insertAdjacentElement("afterend", creator);
+    });
+
+    Array.from(doc.querySelectorAll(".fixed h3")).forEach(function (heading) {
+      var sheet = heading.closest(".fixed > div");
+      if (!sheet || sheet.querySelector("[data-vote-detail]")) return;
+
+      var question = heading.textContent.trim();
+      var data = detailFor(question);
+      var optionList = Array.from(sheet.querySelectorAll("div")).find(function (
+        element,
+      ) {
+        return (
+          element.classList.contains("space-y-2") &&
+          element.querySelector("button")
+        );
+      });
+      if (!optionList) return;
+
+      var detail = doc.createElement("section");
+      detail.setAttribute("data-vote-detail", "true");
+      detail.setAttribute("aria-label", "รายละเอียดโหวต");
+      detail.innerHTML =
+        '<div class="vote-detail-title">' +
+        detailIcon +
+        "<span>รายละเอียดโหวต</span></div>" +
+        '<p class="vote-detail-copy">' +
+        safeText(data.detail) +
+        "</p>" +
+        '<div class="vote-purpose"><strong>จุดประสงค์:</strong> ' +
+        safeText(data.purpose) +
+        "</div>";
+      optionList.insertAdjacentElement("beforebegin", detail);
+    });
+  }
+
+  function enhanceBattles(doc) {
+    var battleBadge = Array.from(doc.querySelectorAll("span")).find(function (
+      element,
+    ) {
+      return element.textContent.indexOf("BATTLE OF THE DAY") !== -1;
+    });
+    if (!battleBadge) return;
+
+    var page = battleBadge.closest(".space-y-4");
+    if (!page || page.querySelector("[data-extra-battles]")) return;
+
+    var liveCard = Array.from(page.children).find(function (child) {
+      return Array.from(child.querySelectorAll("button")).some(function (
+        button,
+      ) {
+        return button.textContent.indexOf("Pulse") !== -1;
+      });
+    });
+    var anchor = liveCard || battleBadge.closest(".rounded-3xl");
+    if (!anchor) return;
+
+    var battles = doc.createElement("section");
+    battles.setAttribute("data-extra-battles", "true");
+    battles.setAttribute("aria-label", "แบทเทิลเพิ่มเติม");
+    battles.innerHTML =
+      '<div class="extra-battles-heading"><strong>แบทเทิลที่กำลังมาแรง</strong><span>เลือกฝั่งที่ใช่สำหรับคุณ</span></div>' +
+      '<article data-extra-battle="friendly" data-a="57" data-b="43">' +
+      '<div class="extra-battle-top"><span class="extra-battle-tag">FRIENDLY BATTLE</span><span class="extra-battle-meta">เหลือ 18 นาที · 824 เสียง</span></div>' +
+      '<h4 class="extra-battle-title">เครื่องดื่มประจำออฟฟิศควรเป็นอะไร?</h4>' +
+      '<p class="extra-battle-creator">สร้างโดย ทีมออฟฟิศฮับ</p>' +
+      '<div class="extra-battle-score" aria-label="กาแฟสกัดเย็น 57 เปอร์เซ็นต์ ชาไทย 43 เปอร์เซ็นต์"><span class="side-a" style="width:57%"></span><span class="side-b" style="width:43%"></span></div>' +
+      '<div class="extra-battle-actions"><button class="extra-battle-choice" type="button" data-side="a" aria-pressed="false"><span>กาแฟสกัดเย็น</span><span>57%</span></button><button class="extra-battle-choice" type="button" data-side="b" aria-pressed="false"><span>ชาไทย</span><span>43%</span></button></div>' +
+      "</article>" +
+      '<article data-extra-battle="decision" data-a="64" data-b="36">' +
+      '<div class="extra-battle-top"><span class="extra-battle-tag">DECISION BATTLE</span><span class="extra-battle-meta">เหลือ 1 ชม. · 1,206 เสียง</span></div>' +
+      '<h4 class="extra-battle-title">พื้นที่ว่างริมแม่น้ำควรพัฒนาเป็นอะไร?</h4>' +
+      '<p class="extra-battle-creator">สร้างโดย ชุมชนริมน้ำ</p>' +
+      '<div class="extra-battle-score" aria-label="ตลาดนัดชุมชน 64 เปอร์เซ็นต์ สวนกิจกรรม 36 เปอร์เซ็นต์"><span class="side-a" style="width:64%"></span><span class="side-b" style="width:36%"></span></div>' +
+      '<div class="extra-battle-actions"><button class="extra-battle-choice" type="button" data-side="a" aria-pressed="false"><span>ตลาดนัดชุมชน</span><span>64%</span></button><button class="extra-battle-choice" type="button" data-side="b" aria-pressed="false"><span>สวนกิจกรรม</span><span>36%</span></button></div>' +
+      "</article>";
+
+    battles.addEventListener("click", function (event) {
+      var button = event.target.closest(".extra-battle-choice");
+      if (!button) return;
+      var battle = button.closest("[data-extra-battle]");
+      if (!battle || battle.querySelector("[aria-pressed='true']")) return;
+
+      var selectedSide = button.getAttribute("data-side");
+      var a = Number(battle.getAttribute("data-a"));
+      var b = Number(battle.getAttribute("data-b"));
+      if (selectedSide === "a") a += 1;
+      else b += 1;
+      var total = a + b;
+      var aPercent = Math.round((a / total) * 100);
+      var bPercent = 100 - aPercent;
+
+      battle.querySelector(".side-a").style.width = aPercent + "%";
+      battle.querySelector(".side-b").style.width = bPercent + "%";
+      var choices = battle.querySelectorAll(".extra-battle-choice");
+      choices[0].querySelector("span:last-child").textContent = aPercent + "%";
+      choices[1].querySelector("span:last-child").textContent = bPercent + "%";
+      button.setAttribute("aria-pressed", "true");
+    });
+
+    anchor.insertAdjacentElement("afterend", battles);
+  }
+
+  function enhance(doc) {
+    enhancePublicVotes(doc);
+    enhanceBattles(doc);
+  }
+
+  function connect() {
+    var frame = document.getElementById("voteframe");
+    if (!frame || !frame.contentDocument) return;
+    var doc = frame.contentDocument;
+    if (!doc.getElementById("public-vote-enhancement-styles")) {
+      var style = doc.createElement("style");
+      style.id = "public-vote-enhancement-styles";
+      style.textContent = styleText;
+      doc.head.appendChild(style);
+    }
+    enhance(doc);
+    new MutationObserver(function () {
+      enhance(doc);
+    }).observe(doc.body, { childList: true, subtree: true });
+  }
+
+  var frame = document.getElementById("voteframe");
+  if (frame) {
+    frame.addEventListener("load", connect);
+    if (frame.contentDocument && frame.contentDocument.readyState === "complete")
+      connect();
+  }
+})();
+</script></body>
+</html>
