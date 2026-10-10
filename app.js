@@ -18,6 +18,12 @@ process.on("uncaughtException", (err) => {
 });
 process.on("unhandledRejection", (err) => logError("unhandledRejection", err));
 
+// Passenger ดัก listen() อัตโนมัติไม่ได้กับ Fastify จึงปิด autoInstall แล้วให้แอป listen("passenger") เอง
+if (typeof PhusionPassenger !== "undefined") {
+  PhusionPassenger.configure({ autoInstall: false });
+  process.env.VOTE_PASSENGER = "1";
+}
+
 const envFile = path.join(__dirname, ".env");
 if (fs.existsSync(envFile)) process.loadEnvFile(envFile);
 process.env.NODE_ENV ||= "production";
