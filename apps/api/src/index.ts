@@ -48,6 +48,9 @@ if (env.isProd) await runMigrations((m) => app.log.info(m));
 
 startScheduler();
 // ใต้ Phusion Passenger (Plesk) ต้อง listen ที่ path "passenger" แทนพอร์ต (ดู app.js)
-if (process.env.VOTE_PASSENGER) await app.listen({ path: "passenger" });
-else await app.listen({ port: env.port, host: "0.0.0.0" });
+// (Passenger รับเฉพาะ listen("passenger") แบบ string จึงเรียกที่ server ตรง ๆ แทน app.listen)
+if (process.env.VOTE_PASSENGER) {
+  await app.ready();
+  app.server.listen("passenger");
+} else await app.listen({ port: env.port, host: "0.0.0.0" });
 console.log(`API ready on http://localhost:${env.port}`);
