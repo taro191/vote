@@ -8,6 +8,7 @@ import { env } from "./env.js";
 import { HttpError } from "./auth.js";
 import { routes } from "./routes.js";
 import { startScheduler } from "./scheduler.js";
+import { runMigrations } from "./migrations.js";
 
 const app = Fastify({ logger: { level: env.isProd ? "info" : "warn" }, trustProxy: true });
 
@@ -41,6 +42,9 @@ if (existsSync(webDist)) {
     reply.code(404).send({ error: "Not found" });
   });
 }
+
+// โปรดักชัน: อัปเดตตารางอัตโนมัติตอนเริ่มแอป (Plesk ไม่ส่ง env ไปให้คำสั่ง npm จึงรัน migrate แยกไม่ได้)
+if (env.isProd) await runMigrations((m) => app.log.info(m));
 
 startScheduler();
 await app.listen({ port: env.port, host: "0.0.0.0" });
