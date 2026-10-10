@@ -3,11 +3,26 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
+// Plesk ไม่แสดง stdout/stderr ของแอป จึงเขียน error ตอนเริ่มทำงานลงไฟล์นี้ (อ่านได้จาก File Manager)
+const errorLog = path.join(__dirname, "app-error.log");
+const logError = (label, err) => {
+  const msg = `[${new Date().toISOString()}] ${label}: ${err && err.stack ? err.stack : err}\n`;
+  console.error(msg);
+  try {
+    fs.appendFileSync(errorLog, msg);
+  } catch {}
+};
+process.on("uncaughtException", (err) => {
+  logError("uncaughtException", err);
+  process.exit(1);
+});
+process.on("unhandledRejection", (err) => logError("unhandledRejection", err));
+
 const envFile = path.join(__dirname, ".env");
 if (fs.existsSync(envFile)) process.loadEnvFile(envFile);
 process.env.NODE_ENV ||= "production";
 
 import("./apps/api/dist/index.js").catch((err) => {
-  console.error("Failed to start VOTE API:", err);
+  logError("Failed to start VOTE API", err);
   process.exit(1);
 });
