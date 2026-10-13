@@ -3,6 +3,7 @@ import { api } from "../api";
 import { useSession } from "../App";
 import { Avatar, ErrorBox, LifeEntry, PollList, Spinner, useLoad, useNav, useToast } from "../ui";
 import { Tabs } from "./Battles";
+import { loginWithLine } from "../liff";
 
 export default function Profile() {
   const { user, config, logout, openCtx } = useSession();
@@ -32,6 +33,8 @@ export default function Profile() {
           <p className="truncate text-xl font-extrabold">{user.name}</p>
         </div>
       </div>
+
+      {user.isGuest && <GuestCard />}
 
       <LifeEntry />
 
@@ -68,6 +71,62 @@ export default function Profile() {
             </button>
           </div>
         </div>
+      )}
+    </div>
+  );
+}
+
+/** ผู้เยี่ยมชม: ตั้งชื่อที่แสดง และเลือกล็อกอิน LINE ทีหลังได้ (ข้อมูลเดิมย้ายตามไปด้วย) */
+function GuestCard() {
+  const { user, config, setUser } = useSession();
+  const toast = useToast();
+  const [name, setName] = useState(user.name);
+  const [busy, setBusy] = useState(false);
+  const liffId = import.meta.env.VITE_LIFF_ID || config.liffId;
+
+  const save = async () => {
+    if (!name.trim() || name.trim() === user.name) return;
+    setBusy(true);
+    try {
+      setUser(await api.rename(name.trim()));
+      toast("บันทึกชื่อแล้ว");
+    } catch (e) {
+      toast((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="card space-y-3 p-4">
+      <div>
+        <p className="text-sm font-extrabold">คุณกำลังใช้งานแบบผู้เยี่ยมชม</p>
+        <p className="mt-1 text-xs text-mute">
+          โหวตและสร้างโหวตแบบลิงก์/สาธารณะได้เลย ข้อมูลผูกกับเบราว์เซอร์นี้ · โหวตเฉพาะกลุ่ม LINE ต้องเข้าสู่ระบบด้วย LINE
+        </p>
+      </div>
+      <form
+        className="flex gap-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          save();
+        }}
+      >
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          maxLength={40}
+          placeholder="ชื่อที่แสดง"
+          className="min-w-0 flex-1 rounded-xl border border-line bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
+        />
+        <button disabled={busy || !name.trim() || name.trim() === user.name} className="rounded-xl bg-accent-soft px-3.5 py-2 text-sm font-bold text-accent disabled:opacity-50">
+          บันทึก
+        </button>
+      </form>
+      {liffId && (
+        <button onClick={loginWithLine} className="w-full rounded-xl bg-[#06C755] py-2.5 text-sm font-bold text-white">
+          เข้าสู่ระบบด้วย LINE
+        </button>
       )}
     </div>
   );

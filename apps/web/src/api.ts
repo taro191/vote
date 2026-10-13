@@ -1,9 +1,10 @@
 const BASE = import.meta.env.VITE_API_URL || "";
 const TOKEN_KEY = "vote.token";
 
+// เก็บใน localStorage เพื่อให้ผู้เยี่ยมชมกลับมาแล้วยังเป็นคนเดิม (โหวตไม่ซ้ำ ข้อมูลไม่หาย)
 let token: string | null = null;
 try {
-  token = sessionStorage.getItem(TOKEN_KEY);
+  token = localStorage.getItem(TOKEN_KEY) ?? sessionStorage.getItem(TOKEN_KEY);
 } catch {
   /* storage ใช้ไม่ได้ (private mode) */
 }
@@ -11,13 +12,15 @@ try {
 export function setToken(t: string | null) {
   token = t;
   try {
-    if (t) sessionStorage.setItem(TOKEN_KEY, t);
-    else sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(TOKEN_KEY);
+    if (t) localStorage.setItem(TOKEN_KEY, t);
+    else localStorage.removeItem(TOKEN_KEY);
   } catch {
     /* ignore */
   }
 }
 export const hasToken = () => Boolean(token);
+export const getToken = () => token;
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) {
@@ -43,7 +46,7 @@ export type Kind = "single" | "multiple" | "battle" | "rating" | "yesno";
 export type Audience = "group" | "link" | "public";
 export type Visibility = "live" | "after_vote" | "after_close";
 
-export type User = { id: string; name: string; pictureUrl: string | null };
+export type User = { id: string; name: string; pictureUrl: string | null; isGuest: boolean };
 export type Group = { id: string; type: "group" | "room"; name: string | null; pictureUrl: string | null; botActive: boolean; openPolls?: number };
 export type Config = { liffId: string | null; devAuth: boolean; bot: boolean };
 
@@ -111,7 +114,10 @@ type ProfileInput = { name: string; birth: string; target: number };
 
 export const api = {
   config: () => req<Config>("GET", "/api/config"),
-  loginLine: (idToken: string) => req<{ token: string; user: User }>("POST", "/api/auth/line", { idToken }),
+  loginLine: (idToken: string, guestToken?: string | null) =>
+    req<{ token: string; user: User }>("POST", "/api/auth/line", { idToken, ...(guestToken ? { guestToken } : {}) }),
+  loginGuest: () => req<{ token: string; user: User }>("POST", "/api/auth/guest", {}),
+  rename: (name: string) => req<User>("PUT", "/api/me", { name }),
   loginDev: (name: string) => req<{ token: string; user: User }>("POST", "/api/auth/dev", { name }),
   me: () => req<User>("GET", "/api/me"),
   context: (ctx: string) => req<{ group: Group; isMember: boolean }>("POST", "/api/context", { ctx }),

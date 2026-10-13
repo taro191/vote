@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { bool, exec, one, rows } from "./db.js";
-import { HttpError, type User } from "./auth.js";
+import { HttpError, isGuest, type User } from "./auth.js";
 import { groupSummary, isDevGroup, isMember } from "./line.js";
 
 export type Group = {
@@ -69,6 +69,7 @@ export async function markMembersLeft(lineGroupId: string, lineUserIds: string[]
 
 /** ตรวจว่าผู้ใช้เป็นสมาชิกกลุ่ม (ใช้แคช ถ้าเก่าเกินไปจะถาม LINE ใหม่) */
 export async function checkMember(user: User, group: Group, force = false): Promise<boolean> {
+  if (isGuest(user)) return false; // ผู้เยี่ยมชมไม่มีบัญชี LINE จึงยืนยันการเป็นสมาชิกกลุ่มไม่ได้
   const cached = await one<{ verified_at: Date; left_at: Date | null }>(
     "SELECT verified_at, left_at FROM group_members WHERE group_id = ? AND user_id = ?",
     [group.id, user.id],

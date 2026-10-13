@@ -2,7 +2,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
 import type { FastifyRequest } from "fastify";
 import { env } from "./env.js";
-import { exec, one } from "./db.js";
+import { exec, one, tx } from "./db.js";
 
 const key = new TextEncoder().encode(env.appSecret);
 
@@ -14,8 +14,8 @@ export class HttpError extends Error {
   }
 }
 
-export async function issueSession(userId: string) {
-  return new SignJWT({}).setProtectedHeader({ alg: "HS256" }).setSubject(userId).setIssuedAt().setExpirationTime("30d").sign(key);
+export async function issueSession(userId: string, ttl = "30d") {
+  return new SignJWT({}).setProtectedHeader({ alg: "HS256" }).setSubject(userId).setIssuedAt().setExpirationTime(ttl).sign(key);
 }
 
 export async function requireUser(req: FastifyRequest): Promise<User> {
@@ -70,4 +70,41 @@ export function readGroupCtx(token: string): string | null {
   const got = Buffer.from(s);
   if (expect.length !== got.length || !timingSafeEqual(expect, got)) return null;
   return Buffer.from(data, "base64url").toString();
+}
+
+/* ---------------------- ผู้เยี่ยมชม (ใช้งานโดยไม่ต้องล็อกอิน LINE) ---------------------- */
+
+const GUEST_PREFIX = "guest-";
+export const isGuest = (u: Pick<User, "line_user_id">) => u.line_user_id.startsWith(GUEST_PREFIX);
+
+/** สร้างบัญชีผู้เยี่ยมชมใหม่ ผูกกับอุปกรณ์ผ่าน token ที่เก็บในเบราว์เซอร์ */
+export async function createGuest(): Promise<User> {
+  const id = randomUUID();
+  return upsertUser(`${GUEST_PREFIX}${id}`, `ผู้เยี่ยมชม #${id.slice(0, 4).toUpperCase()}`, null);
+}
+
+/** อ่าน user จาก token โดยไม่โยน error (ใช้ตอนรวมบัญชีผู้เยี่ยมชม) */
+export async function userFromToken(token: string): Promise<User | null> {
+  try {
+    const { payload } = await jwtVerify(token, key);
+    return (await one<User>("SELECT id, line_user_id, display_name, picture_url FROM users WHERE id = ?", [payload.sub])) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** ย้ายข้อมูลของผู้เยี่ยมชมไปบัญชี LINE แล้วลบบัญชีผู้เยี่ยมชม (โหวตซ้ำโพลเดียวกันจะเก็บของบัญชี LINE ไว้) */
+export async function mergeGuest(guest: User, into: User) {
+  if (!isGuest(guest) || guest.id === into.id) return;
+  await tx(async (c) => {
+    await exec("UPDATE polls SET creator_id = ? WHERE creator_id = ?", [into.id, guest.id], c);
+    await exec("UPDATE life_profiles SET owner_id = ? WHERE owner_id = ?", [into.id, guest.id], c);
+    await exec(
+      `UPDATE votes SET user_id = ? WHERE user_id = ?
+         AND poll_id NOT IN (SELECT poll_id FROM (SELECT DISTINCT poll_id FROM votes WHERE user_id = ?) AS mine)`,
+      [into.id, guest.id, into.id],
+      c,
+    );
+    await exec("DELETE FROM users WHERE id = ?", [guest.id], c);
+  });
 }

@@ -2,7 +2,8 @@ import type { FastifyInstance } from "fastify";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { env, hasBot } from "./env.js";
-import { HttpError, issueSession, readGroupCtx, requireUser, signGroupCtx, upsertUser, verifyLineIdToken } from "./auth.js";
+import { createGuest, HttpError, isGuest, issueSession, mergeGuest, readGroupCtx, requireUser, signGroupCtx, upsertUser, userFromToken, verifyLineIdToken } from "./auth.js";
+import { exec } from "./db.js";
 import { checkMember, ensureGroup, getGroupByLineId, myGroups, publicGroup } from "./groups.js";
 import { castVote, clearVote, closePoll, createPoll, createSchema, deletePoll, listPolls, pollView } from "./polls.js";
 import { handleEvent } from "./webhook.js";
@@ -37,10 +38,34 @@ export async function routes(app: FastifyInstance) {
 
   /* ---------------------------------- auth --------------------------------- */
   app.post("/api/auth/line", async (req) => {
-    const { idToken } = parse(z.object({ idToken: z.string().min(10) }), req.body);
+    const { idToken, guestToken } = parse(z.object({ idToken: z.string().min(10), guestToken: z.string().max(2000).optional() }), req.body);
     const p = await verifyLineIdToken(idToken);
     const user = await upsertUser(p.lineUserId, p.name, p.picture);
+    // เคยใช้งานแบบผู้เยี่ยมชมมาก่อน: ย้ายโหวต/โพล/Vote my life มาที่บัญชี LINE
+    const guest = guestToken ? await userFromToken(guestToken) : null;
+    if (guest) await mergeGuest(guest, user);
     return { token: await issueSession(user.id), user: publicUser(user) };
+  });
+
+  // ใช้งานได้ทันทีโดยไม่ต้องล็อกอิน: สร้างบัญชีผู้เยี่ยมชมผูกกับเบราว์เซอร์นี้
+  const guestHits = new Map<string, { n: number; reset: number }>();
+  app.post("/api/auth/guest", async (req) => {
+    const now = Date.now();
+    const hit = guestHits.get(req.ip);
+    if (!hit || hit.reset < now) guestHits.set(req.ip, { n: 1, reset: now + 3_600_000 });
+    else if (++hit.n > 30) throw new HttpError(429, "สร้างบัญชีผู้เยี่ยมชมบ่อยเกินไป ลองใหม่ภายหลัง");
+    if (guestHits.size > 10_000) guestHits.clear();
+    const user = await createGuest();
+    return { token: await issueSession(user.id, "365d"), user: publicUser(user) };
+  });
+
+  // ผู้เยี่ยมชมตั้งชื่อที่แสดงเองได้ (ผู้ใช้ LINE ใช้ชื่อจาก LINE)
+  app.put("/api/me", async (req) => {
+    const user = await requireUser(req);
+    if (!isGuest(user)) throw new HttpError(400, "ชื่อของบัญชี LINE เปลี่ยนได้ที่แอป LINE");
+    const { name } = parse(z.object({ name: z.string().trim().min(1, "กรุณาใส่ชื่อ").max(40) }), req.body);
+    await exec("UPDATE users SET display_name = ? WHERE id = ?", [name, user.id]);
+    return publicUser({ ...user, display_name: name });
   });
 
   app.post("/api/auth/dev", async (req) => {
@@ -177,6 +202,6 @@ export async function routes(app: FastifyInstance) {
   });
 }
 
-function publicUser(u: { id: string; display_name: string; picture_url: string | null }) {
-  return { id: u.id, name: u.display_name, pictureUrl: u.picture_url };
+function publicUser(u: { id: string; line_user_id: string; display_name: string; picture_url: string | null }) {
+  return { id: u.id, name: u.display_name, pictureUrl: u.picture_url, isGuest: isGuest(u) };
 }

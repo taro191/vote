@@ -132,7 +132,7 @@ export async function sendLifeReminders(now = new Date()) {
   const due = await rows<{ id: string; line_user_id: string }>(
     `SELECT u.id, u.line_user_id FROM users u
       WHERE u.life_remind_on = TRUE AND u.life_remind_time <= ? AND (u.life_reminded_on IS NULL OR u.life_reminded_on < ?)
-        AND u.line_user_id NOT LIKE 'dev-%'
+        AND u.line_user_id NOT LIKE 'dev-%' AND u.line_user_id NOT LIKE 'guest-%'
         AND EXISTS (SELECT 1 FROM life_profiles p WHERE p.owner_id = u.id
                      AND NOT EXISTS (SELECT 1 FROM life_votes v WHERE v.profile_id = p.id AND v.day = ?))
       LIMIT 200`,

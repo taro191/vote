@@ -4,15 +4,17 @@ import type { Poll } from "./api";
 let ready = false;
 let initing: Promise<void> | null = null;
 
+/** เริ่ม LIFF แล้วคืน ID token ถ้าล็อกอิน LINE อยู่ (ไม่บังคับล็อกอิน) */
 export async function initLiff(liffId: string) {
   initing ??= liff.init({ liffId });
   await initing;
   ready = true;
-  if (!liff.isLoggedIn()) {
-    liff.login({ redirectUri: window.location.href });
-    return null; // กำลัง redirect ไปหน้า login
-  }
-  return liff.getIDToken();
+  return liff.isLoggedIn() ? liff.getIDToken() : null;
+}
+
+/** ไปหน้าล็อกอิน LINE แล้วกลับมาหน้าเดิม */
+export function loginWithLine() {
+  liff.login({ redirectUri: window.location.href });
 }
 
 export const inLineClient = () => ready && liff.isInClient();
