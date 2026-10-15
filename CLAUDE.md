@@ -5,6 +5,9 @@
 ## โครงสร้าง
 - npm workspaces: `apps/api` (Node 22+, Fastify 5, mysql2, jose) และ `apps/web` (React 19, Vite 7, Tailwind v4, LIFF SDK)
 - `apps/api/src/routes.ts` รวม route ทั้งหมด · `auth.ts` session/LINE login/guest · `polls.ts` `groups.ts` `life.ts` logic แต่ละส่วน · `webhook.ts` `line.ts` บอท · `scheduler.ts` ปิดโหวต/เตือน (เรียกผ่าน `/api/cron`)
+- `apps/web/src/pages/Create.tsx` สร้างโหวตแบบ wizard ทีละขั้น (`Step`: kind → title → options → audience → close → settings → review)
+  ขั้น `options` มีเฉพาะ single/multiple/battle · `problem(step)` คือเงื่อนไขก่อนไปขั้นถัดไป ควรให้ตรงกับ zod schema ใน `apps/api/src/polls.ts` · ตอน submit จะตรวจทุกขั้นซ้ำ
+  ถ้าเพิ่มฟิลด์ใหม่ ให้ใส่ในขั้นที่เหมาะสมและเพิ่มบรรทัดในหน้า review ด้วย
 - `apps/api/migrations/NNN_*.sql` รันตามลำดับชื่อไฟล์ และจดไว้ในตาราง `schema_migrations` → **ห้ามแก้ไฟล์ที่ deploy ไปแล้ว ให้เพิ่มไฟล์ใหม่แทน**
 - `app.js` คือจุดเริ่มสำหรับ Plesk/Passenger · API เสิร์ฟหน้าเว็บจาก `apps/web/dist` ด้วย
 - `design/` เป็นต้นแบบจาก Figma Make ใช้อ้างอิงหน้าตาเท่านั้น ไม่ได้ build (มี CLAUDE.md ของตัวเอง)
